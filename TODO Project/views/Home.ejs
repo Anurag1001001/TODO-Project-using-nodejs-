@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoList</title>
+
+    <!-- google font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    />
+
+    <!-- style sheet -->
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <header>
+      <h1>My Todo List</h1>
+    </header>
+    <!-- # Form to create TODO task -->
+    <form action="/create/todo" method="POST">
+      <input type="text" name="content" class="todo-input" required/>
+      <button  type="submit">
+        <i class="fas fa-plus-square"></i>
+      </button>
+
+      <!--# Filter TODO task from completed , uncompleted and All task -->
+      <div class="select">
+        <select name="todos" class="filter-todo">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="uncompleted">Uncompleted</option>
+        </select>
+      </div>
+
+      <!-- # DropDown to choose category of TODO task -->
+      <div class="select">
+        <select name="category" class="filter-todo" required>
+          <option value="">Category</option>
+          <option value="Personel">Personel</option>
+          <option value="School">School</option>
+          <option value="Work">Work</option>
+        </select>
+      </div>
+    </form>
+    
+    <!--# Can't Document anything inside  todo-container because if i do so then filtering b/w completed , uncompleted , and All task does't work -->
+<!-- # So i'm Documentinf here, actually i'm just fetching TODO task and displaying here dynamically and  gave a button to delete and mark as done if Task gets completed  -->
+
+    <!-- <# TODO list> -->
+    <div class="todo-container">
+      <ul class="todo-list">
+        <% for(let l of todo){%>
+          <div class="todo">
+            <li class="todo-item">
+              <%= l.Content%>  
+            </li>
+
+            <sub class="category">
+              <b><%=l.Category%></b>
+            </sub>
+            
+            <!-- # button to mark task as completed if it gets completed -->
+            <a href="#" onclick="deleteTodo">
+              <button  type="submit" class="complete-btn" >
+                <i class="fas fa-check"></i>
+              </button>
+            </a>
+
+            <!-- # button to delete existing TODO task  -->
+            <a href="/delete/todo/?id=<%=l._id%>" onclick="deleteTodo">
+              <button  type="submit" class="trash-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </a>
+          </div>
+        <%}%>
+      </ul>
+    </div>
+
+    <script src="/js/home.js"></script>
+  </body>
+</html>
